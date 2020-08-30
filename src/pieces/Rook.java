@@ -1,3 +1,5 @@
+package pieces;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,17 +13,19 @@ import java.util.ArrayList;
  *
  * @author DELL
  */
-public class Queen extends Pieces {
+public class Rook extends Pieces {
 
-    public Queen(ColorCode colorCode) {
-        this.setName("Queen");
+    public Rook(ColorCode colorCode) {
+        this.setName("Rook");
         this.clr = colorCode;
         if (colorCode == ColorCode.BLACK) {
-            this.setIcon("Chess_QueenBlack.png");
+            this.setIcon("Chess_RookBlack.png");
         } else {
-            this.setIcon("Chess_QueenWhite.png");
+            this.setIcon("Chess_RookWhite.png");
         }
+        
     }
+    
 
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {

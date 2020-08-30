@@ -1,4 +1,6 @@
 
+import pieces.Chess;
+import pieces.Pieces;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -60,21 +62,20 @@ public class MainPanel extends javax.swing.JPanel {
                 int row = tblBoard.rowAtPoint(evt.getPoint());
                 int col = tblBoard.columnAtPoint(evt.getPoint());
 
-                Pieces from = chess.selectedPiece;
+                Pieces from = chess.GetSelectedPieces();
                 Pieces to = (Pieces) model.getValueAt(row, col);
-                
-                if(from == null)
-                    from = to;
 
-//                if (from != null) {//move
-//
-//                } else {
-//                    if (to != null) {
-//                        Chess.GetInstance().Select(to, row, col);
-//                    } else {
-//                        chess.selectedPiece = null;
-//                    }
-//                }
+                if (from == null) {
+                    chess.Select(to, row, col);
+                } else {
+                    String newPos = "" + row + col;
+                    if (from.possibleMove.contains(newPos)) {//valid move
+                        chess.Move(from, to, "" + row + col);
+                        
+                    } else {
+                        chess.Select(to, row, col);
+                    }
+                }
 
                 tblBoard.repaint();
             }
@@ -122,9 +123,9 @@ class ColorRenderer extends JLabel implements TableCellRenderer {
 
         this.setBorder(null);
         Chess chess = Chess.GetInstance();
-        if (chess.selectedPiece != null) {
+        if (chess.GetSelectedPieces() != null) {
             String currPos = "" + row + column;
-            if (chess.selectedPiece.possibleMove.contains(currPos)) {
+            if (chess.GetSelectedPieces().possibleMove.contains(currPos)) {
                 this.setBorder(new LineBorder(Color.GREEN));
             }
         }
@@ -196,7 +197,7 @@ class PiecesTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         String key = rowIndex + "" + columnIndex;
 
-        return chess.pieces.getOrDefault(key, null);
+        return chess.GetAll().getOrDefault(key, null);
 
     }
 

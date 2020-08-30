@@ -1,3 +1,5 @@
+package pieces;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,16 +13,15 @@ import java.util.ArrayList;
  *
  * @author DELL
  */
-public class Rook extends Pieces {
+public class Bishop extends Pieces {
 
-    public Rook(ColorCode colorCode) {
-        this.setName("Rook");
+    public Bishop(ColorCode colorCode) {
+        this.setName("Bishop");
+        if(colorCode == ColorCode.BLACK)
+            this.setIcon("Chess_BishopBlack.png");
+        else
+            this.setIcon("Chess_BishopWhite.png");
         this.clr = colorCode;
-        if (colorCode == ColorCode.BLACK) {
-            this.setIcon("Chess_RookBlack.png");
-        } else {
-            this.setIcon("Chess_RookWhite.png");
-        }
     }
 
     @Override
