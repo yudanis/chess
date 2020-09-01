@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author DELL
  */
 public class Queen extends Pieces {
-
+    
     public Queen(ColorCode colorCode) {
         this.setName("Queen");
         this.clr = colorCode;
@@ -27,7 +27,11 @@ public class Queen extends Pieces {
 
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> possible = new Bishop(clr).GetPossibleMove(curRow, curCol);
+         ArrayList<String> list2 = new Rook(clr).GetPossibleMove(curRow, curCol);
+        
+         possible.addAll(list2);
+         return possible;
     }
 
 }

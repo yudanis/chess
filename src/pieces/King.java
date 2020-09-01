@@ -27,7 +27,16 @@ public class King extends Pieces {
 
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<String> possible = new Queen(clr).GetPossibleMove(curRow, curCol);
+        Object[] obj = possible.toArray();
+        for(Object o: obj){
+            int row = Integer.parseInt(o.toString().substring(0, 1));
+            int col =  Integer.parseInt(o.toString().substring(1, 2));
+            if(Math.abs(curRow - row) > 1 || Math.abs(curCol -  col) > 1)
+                possible.remove(o);
+            
+        }
+        return possible;
     }
 
 }

@@ -26,12 +26,58 @@ public class Rook extends Pieces {
 
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {
+          ArrayList<String> possible = new ArrayList<>();
+        Chess chess = Chess.GetInstance();
+        String targetpos = "";
+        int start = 1;
+        ArrayList<String> targetToCheck = null;
+        boolean needToCheck = false;
+        do {
+            needToCheck = false;
+            if (targetToCheck == null) {
+                targetToCheck = new ArrayList<>();
+                
+                targetToCheck.add(0,curRow + start > 7  ? null : "" + Math.min(7, curRow + start) + "" +curCol);
+                targetToCheck.add(1, curCol + start > 7 ? null :"" + curRow+ "" + Math.min(7,curCol + start));
+                targetToCheck.add(2, curCol - start < 0 ? null :"" + curRow + "" + Math.max(0,curCol - start));
+                targetToCheck.add(3, curRow - start < 0  ? null :"" + Math.max(0,curRow - start) + "" +curCol);
 
-        ArrayList<String>possible = new ArrayList<>();
-        GetPossible(curRow, curCol, true,  possible);
-        GetPossible(curRow, curCol, false, possible);
+            } else {
+                if (targetToCheck.get(0) != null) 
+                    targetToCheck.set(0,curRow + start > 7  ?null: "" + Math.min(7, curRow + start) + "" +curCol);
+                if (targetToCheck.get(1) != null)
+                    targetToCheck.set(1, curCol + start > 7 ? null :"" +  curRow+ "" + Math.min(7,curCol + start));
+                if (targetToCheck.get(2) != null)
+                    targetToCheck.set(2, curCol - start < 0 ? null :"" + curRow + "" + Math.max(0,curCol - start));
+                if (targetToCheck.get(3) != null)
+                    targetToCheck.set(3,curRow - start < 0   ? null :"" +  Math.max(0,curRow - start) + "" +curCol);
+            }
+            for (int i = 0; i < targetToCheck.size(); i++) {
+                targetpos = targetToCheck.get(i);
+                if (targetpos != null) {
+                    needToCheck = true;
+                    Pieces target = chess.pieces.get(targetpos);
+                    if (target == null || target.clr != this.clr) {
+                        possible.add(targetpos);
+                    }
 
+                    if (target != null) {
+                        targetToCheck.set(i, null);
+                    }
+                    
+                }
+            }
+
+            start++;
+
+        } while (needToCheck);
         return possible;
+
+//        ArrayList<String>possible = new ArrayList<>();
+//        GetPossible(curRow, curCol, true,  possible);
+//        GetPossible(curRow, curCol, false, possible);
+//
+//        return possible;
 
     }
 
