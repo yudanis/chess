@@ -5,8 +5,6 @@ package pieces;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.util.ArrayList;
 
 /**
@@ -23,13 +21,57 @@ public class Rook extends Pieces {
         } else {
             this.setIcon("Chess_RookWhite.png");
         }
-        
+
     }
-    
 
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        ArrayList<String>possible = new ArrayList<>();
+        GetPossible(curRow, curCol, true,  possible);
+        GetPossible(curRow, curCol, false, possible);
+
+        return possible;
+
     }
 
+    private void GetPossible(int curRow, int curCol, boolean isRow,  ArrayList<String> possible) {
+        Chess chess = Chess.GetInstance();
+        String targetpos = "";
+        Pieces target = null;
+        int start = 1;
+        int targetUp = 0;
+        int targetDown = 0;
+        boolean checkUp = true;
+        boolean checkdDown = true;
+        do {
+            targetUp = (isRow? curRow:curCol) + start;
+            targetpos = (isRow? targetUp: curRow) + "" + (isRow ? curCol : targetUp);
+            target = chess.pieces.get(targetpos);
+
+            if (checkUp) {
+                if (target == null || target.clr != this.clr) {
+                    possible.add(targetpos);
+                }
+
+                if (target != null) {
+                    checkUp = false;
+                }
+            }
+            targetDown = (isRow ? curRow : curCol) - start;
+            targetpos = (isRow? targetDown : curRow)+ "" + (isRow ? curCol: targetDown);
+            target = chess.pieces.get(targetpos);
+            if (checkdDown) {
+                if (target == null || target.clr != this.clr) {
+                    possible.add(targetpos);
+                }
+                if (target != null) {
+                    checkdDown = false;
+                }
+            }
+            start++;
+
+        } while (targetUp < 8 || targetDown >= 0);
+       
+    }
 }
