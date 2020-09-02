@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public abstract class Pieces {
 
+   
+
     public enum ColorCode {
         WHITE, BLACK
     };
@@ -23,7 +25,7 @@ public abstract class Pieces {
     //Chess chess = Chess.GetInstance();
     public ArrayList<String> possibleMove;
     String position = "";
-
+    ArrayList<Pieces> backupPieces;
     public Pieces() {
 
     }
@@ -58,7 +60,15 @@ public abstract class Pieces {
         this.position = position;
         return this;
     }
-
+    public void AddBackup(Pieces pieces){
+        backupPieces.add(pieces);
+    }
+    public void RemoveBackup(Pieces pieces){
+        backupPieces.remove(pieces);
+    }
     public abstract ArrayList<String> GetPossibleMove(int curRow, int curCol);
+    boolean IsHaveBackup() {
+       return backupPieces != null && backupPieces.size() > 0;
+    }
 
 }

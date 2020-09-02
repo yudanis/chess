@@ -27,11 +27,14 @@ public class King extends Pieces {
 
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {
-        ArrayList<String> possible = new Queen(clr).GetPossibleMove(curRow, curCol);
+        
+        var possible = new Queen(clr).GetPossibleMove(curRow, curCol);
         Object[] obj = possible.toArray();
         for(Object o: obj){
             int row = Integer.parseInt(o.toString().substring(0, 1));
             int col =  Integer.parseInt(o.toString().substring(1, 2));
+            Pieces target = Chess.GetInstance().pieces.get(o);
+           // boolean haveBackup = target.IsHaveBackup();
             if(Math.abs(curRow - row) > 1 || Math.abs(curCol -  col) > 1)
                 possible.remove(o);
             

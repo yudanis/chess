@@ -31,8 +31,8 @@ public class Chess {
     HashMap<String, Pieces> pieces = new HashMap<>();
     Pieces selectedPiece = null;
     public Chess() {
-        Pieces.ColorCode black = Pieces.ColorCode.BLACK;
-        Pieces.ColorCode white = Pieces.ColorCode.WHITE;
+        var black = Pieces.ColorCode.BLACK;
+        var white = Pieces.ColorCode.WHITE;
         pieces.put("00", new Rook(black).SetPosition("00"));
         pieces.put("01", new Knight(black).SetPosition("01"));
         pieces.put("02", new Bishop(black).SetPosition("02"));

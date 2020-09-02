@@ -27,7 +27,7 @@ public class Rook extends Pieces {
     @Override
     public ArrayList<String> GetPossibleMove(int curRow, int curCol) {
           ArrayList<String> possible = new ArrayList<>();
-        Chess chess = Chess.GetInstance();
+        var chess = Chess.GetInstance();
         String targetpos = "";
         int start = 1;
         ArrayList<String> targetToCheck = null;
